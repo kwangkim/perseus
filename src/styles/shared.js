@@ -69,13 +69,13 @@ module.exports = StyleSheet.create({
 
         boxSizing: "border-box",
         flexShrink: 0,
-        marginBottom: 0,
-        marginLeft: 15,
-        marginRight: 15,
-        marginTop: 0,
+        marginBottom: 1,
+        marginLeft: 1,
+        marginRight: 1,
+        marginTop: 1,
 
-        height: circleSize,
-        width: circleSize,
+        height: 22,
+        width: 22,
     },
 
     responsiveRadioInput: {
@@ -86,6 +86,11 @@ module.exports = StyleSheet.create({
             border: "2px solid #fff",
             borderRadius: "50%",
             boxShadow: `0 0px 0px 2px ${checkedColor}`,
+
+            marginTop: 2,
+            marginBottom: 2,
+            marginLeft: 2,
+            marginRight: 2,
 
             height: circleSize,
             width: circleSize,

@@ -10,6 +10,7 @@ const classNames = require("classnames");
 const { ClassNames } = require("../../perseus-api.jsx");
 const sharedStyles = require("../../styles/shared.js");
 const styleConstants = require("../../styles/constants.js");
+const mediaQueries = require("../../styles/media-queries.js");
 
 const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
 const ChoiceIcon = require("./choice-icon.jsx");
@@ -27,7 +28,8 @@ const focusedStyleMixin = {
     zIndex: 1,
 };
 
-const responsiveCheckboxPadding = `17px 12px`;
+const responsiveCheckboxPadding = `16px 16px`;
+const responsiveCheckboxPaddingPhone = `12px 16px`;
 
 const Choice = React.createClass({
     propTypes: {
@@ -193,12 +195,24 @@ const Choice = React.createClass({
                 width: "auto",
             },
 
+            choiceIconWrapper: {
+                display: "flex",
+                marginRight: 16,
+            },
+
             rationale: {
                 display: "block",
             },
 
             nonSatRationale: {
                 padding: responsiveCheckboxPadding,
+                paddingTop: 0,
+
+                // HACK(emily)
+                marginLeft: 40,
+                [mediaQueries.smOrSmaller]: {
+                    padding: responsiveCheckboxPaddingPhone,
+                },
             },
 
             satReviewRationale: {
@@ -212,7 +226,6 @@ const Choice = React.createClass({
 
             responsiveLabel: {
                 WebkitTapHighlightColor: "transparent",
-                alignItems: "center",
                 display: "flex",
             },
 
@@ -221,12 +234,13 @@ const Choice = React.createClass({
             },
 
             responsiveCheckbox: {
-                display: "inline-block",
-                padding: responsiveCheckboxPadding,
-            },
+                display: "flex",
+                alignItems: "center",
 
-            checkboxCrossout: {
-                textDecoration: "line-through",
+                padding: responsiveCheckboxPadding,
+                [mediaQueries.smOrSmaller]: {
+                    padding: responsiveCheckboxPaddingPhone,
+                },
             },
         }),
     },
@@ -336,10 +350,8 @@ const Choice = React.createClass({
                 sharedStyles.perseusInteractive,
                 styles.input,
                 sharedStyles.responsiveInput,
-                this.props.type === "radio" &&
-                    !sat && sharedStyles.responsiveRadioInput,
-                this.props.type === "checkbox" &&
-                    !sat && styles.responsiveCheckboxInput,
+                !sat && sharedStyles.responsiveRadioInput,
+                !sat && styles.nonSatInput,
                 sat && this.props.type === "radio" &&
                     sharedStyles.perseusSrOnly,
                 sat && this.props.type === "checkbox" &&
@@ -394,22 +406,26 @@ const Choice = React.createClass({
                     && styles.satDescriptionIncorrectChecked,
                 sat && isLastChoice && styles.satDescriptionLastChoice));
 
-        const checkboxContentClassName = "checkbox " +
-            css(sat && sharedStyles.perseusInteractive,
-                sat && styles.satCheckboxOptionContent);
+        const checkboxContentClassName = classNames(
+            "checkbox",
+            css(
+                sharedStyles.perseusInteractive,
+                !sat && styles.choiceIconWrapper,
+                sat && styles.satCheckboxOptionContent
+            )
+        );
 
 
         const checkboxAndOptionClassName = classNames(
             "checkbox-and-option",
             css(
                 !sat && styles.responsiveCheckbox,
-                !sat && !correct && this.props.showRationale
-                    && styles.checkboxCrossout,
                 !sat && this.props.checked && styles.responsiveCheckboxSelected
             )
         );
 
         const rationaleClassName = classNames(
+            "perseus-radio-rationale-content",
             css(
                 styles.rationale,
                 !sat && styles.nonSatRationale,
@@ -433,7 +449,6 @@ const Choice = React.createClass({
             className={className}
             style={{opacity: showDimmed ? 0.5 : 1.0}}
         >
-            {input}
             <div className={descriptionClassName}
                 onMouseDown={this.onInputMouseDown}
                 onMouseUp={this.onInputMouseUp}
@@ -441,6 +456,7 @@ const Choice = React.createClass({
             >
                 <div className={checkboxAndOptionClassName}>
                     <span className={checkboxContentClassName}>
+                        {input}
                         {this.renderChoiceIcon()}
                     </span>
                     {/* A pseudo-label. <label> is slightly broken on iOS,

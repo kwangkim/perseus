@@ -95,9 +95,11 @@ const BaseRadio = React.createClass({
             instructions: {
                 display: "block",
                 color: styleConstants.gray17,
+                fontSize: 16,
+                lineHeight: 1.25,
                 fontStyle: "normal",
                 fontWeight: "bold",
-                margin: "8px 0",
+                marginBottom: 16,
             },
 
             radio: {
@@ -244,10 +246,6 @@ const BaseRadio = React.createClass({
             !this.props.editMode && "perseus-rendered-radio",
             css(
                 sharedStyles.aboveScratchpad,
-                // With the responsive mobile styles, the individual items are
-                // spaced out vertically, and so we set the backgrounds on the
-                // items rather than the container.
-                sharedStyles.blankBackground,
                 styles.radio,
                 // SAT doesn't use the "responsive styling" as it conflicts
                 // with their custom theming.
@@ -257,7 +255,7 @@ const BaseRadio = React.createClass({
         );
 
         const instructionsClassName = 'instructions ' +
-            css(styles.instructions, sharedStyles.responsiveLabel);
+            css(styles.instructions);
         const instructions = this.getInstructionsText();
         const shouldShowInstructions = isMobile || this.props.multipleSelect;
 
