@@ -3,7 +3,7 @@ const Rule = require("../../rule.js");
 module.exports = Rule.makeRule({
     name: "heading-level-skip",
     selector: "heading ~ heading",
-    lint: function(nodes) {
+    lint: function(state, content, nodes, match) {
         const currentHeading = nodes[1];
         const previousHeading = nodes[0];
         // A heading can have a level less than, the same as

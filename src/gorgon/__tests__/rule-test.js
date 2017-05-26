@@ -38,9 +38,13 @@ Otherwise escape it by writing \\$.`,
         {
             name: "heading-level-skip",
             selector: "heading ~ heading",
-            lint: function(nodes) {
+            lint: function(state, content, nodes) {
                 const currentHeading = nodes[1];
                 const previousHeading = nodes[0];
+
+                assert.equal(nodes.length, 2);
+                assert.equal(nodes[1], state.currentNode());
+
                 // A heading can have a level less than, the same as
                 // or one more than the previous heading. But going up
                 // by 2 or more levels is not right

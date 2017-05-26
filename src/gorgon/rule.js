@@ -143,7 +143,12 @@ class Rule {
             return false;
         }
 
-        const error = this.lint(selectorMatch, patternMatch);
+        const error = this.lint(
+            traversalState,
+            content,
+            selectorMatch,
+            patternMatch
+        );
 
         if (!error) {
             return false;
@@ -160,7 +165,7 @@ class Rule {
         }
     }
 
-    _defaultLintFunction(selectorMatch, patternMatch) {
+    _defaultLintFunction(state, content, selectorMatch, patternMatch) {
         return {
             message: this.message,
             start: patternMatch.index,

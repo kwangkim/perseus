@@ -15,7 +15,7 @@ module.exports = Rule.makeRule({
     selector: "heading",
     pattern: /[^\s:]\s+[A-Z]+[a-z]/,
     locale: "en",
-    lint: function(nodes, match) {
+    lint: function(state, content, nodes, match) {
         // We want to assert that heading text is in sentence case, not
         // title case. The pattern above requires a capital letter at the
         // start of the heading and allows them after a colon, or in
@@ -40,7 +40,7 @@ module.exports = Rule.makeRule({
         //
         // for APA style rules for title case
 
-        const heading = match.input.trim();
+        const heading = content.trim();
         let words = heading.split(/\s+/);
 
         // Remove the first word and the little words
