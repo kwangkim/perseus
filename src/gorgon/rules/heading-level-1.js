@@ -1,4 +1,4 @@
-const Rule = require("../../rule.js");
+const Rule = require("../rule.js");
 
 module.exports = Rule.makeRule({
     name: "heading-level-1",

@@ -1,4 +1,4 @@
-const Rule = require("../../rule.js");
+const Rule = require("../rule.js");
 
 // These are words that we would not expect to be capitalized even in
 // a title-case heading.
