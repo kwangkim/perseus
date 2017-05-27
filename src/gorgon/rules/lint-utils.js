@@ -1,8 +1,3 @@
-// This RegExp extracts the portion of a URL between // and /.
-// The 4th element of the returned match array is the hostname.
-// Any username, "www." prefix, and port are stripped off.
-const URL_PATTERN = /\/\/([^@]+@)?(www.)?([^:\/]+)(:\d+)?/;
-
 // Return the portion of a URL between // and /. This is the authority
 // portion which is usually just the hostname, but may also include
 // a username, password or port. We don't strip those things out because
