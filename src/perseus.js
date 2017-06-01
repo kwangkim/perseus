@@ -17,4 +17,5 @@ module.exports = {
     HintsRenderer:      require("./hints-renderer.jsx"),
     Renderer:           require("./renderer.jsx"),
     MultiItems:         require("./multi-items.js"),
+    Gorgon:             require("./gorgon/gorgon.js"),
 };

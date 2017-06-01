@@ -1,0 +1,16 @@
+module.exports = [
+    require("./blockquoted-math.js"),
+    require("./blockquoted-widget.js"),
+    require("./heading-level-1.js"),
+    require("./heading-level-skip.js"),
+    require("./heading-sentence-case.js"),
+    require("./heading-title-case.js"),
+    require("./image-alt-text.js"),
+    require("./image-in-table.js"),
+    require("./link-click-here.js"),
+    require("./link-image-url.js"),
+    require("./long-paragraph.js"),
+    require("./nested-lists.js"),
+    require("./table-missing-cells.js"),
+    require("./widget-in-table.js"),
+];
