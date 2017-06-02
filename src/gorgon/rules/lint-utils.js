@@ -7,6 +7,9 @@ const HOSTNAME = /\/\/([^\/]+)/;
 // Return the hostname of the URL, with any "www." prefix removed.
 // If this is a relative URL with no hostname, return an empty string.
 function getHostname(url) {
+    if (!url) {
+        return "";
+    }
     const match = url.match(HOSTNAME);
     return match ? match[1] : "";
 }

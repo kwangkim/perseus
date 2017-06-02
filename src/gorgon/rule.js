@@ -143,25 +143,36 @@ class Rule {
             return false;
         }
 
-        const error = this.lint(
-            traversalState,
-            content,
-            selectorMatch,
-            patternMatch
-        );
+        try {
+            const error = this.lint(
+                traversalState,
+                content,
+                selectorMatch,
+                patternMatch
+            );
 
-        if (!error) {
-            return false;
-        } else if (typeof error === "string") {
+            if (!error) {
+                return false;
+            } else if (typeof error === "string") {
+                return {
+                    rule: this.name,
+                    message: error,
+                    start: 0,
+                    end: content.length,
+                };
+            } else {
+                error.rule = this.name;
+                return error;
+            }
+        } catch (e) {
             return {
-                rule: this.name,
-                message: error,
+                rule: "lint-rule-failure",
+                message: `Exception in rule ${this.name}: ${e.message}
+Stack trace:
+${e.stack}`,
                 start: 0,
                 end: content.length,
             };
-        } else {
-            error.rule = this.name;
-            return error;
         }
     }
 
